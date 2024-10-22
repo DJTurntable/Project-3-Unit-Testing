@@ -1,3 +1,4 @@
 public class ScoresTest {
-    //testing commit
+    //note to self: remember to pull first and commit and push when done
+
 }
