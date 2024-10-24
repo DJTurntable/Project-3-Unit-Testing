@@ -5,5 +5,6 @@ public class test {
         //hello
 
         //this is working
+        //I think we should use the ScoresTest class just to match the instructions, so my work is there
     }
 }
