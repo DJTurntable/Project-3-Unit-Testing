@@ -1,5 +1,7 @@
 import org.junit.jupiter.api.Test;
 
+import java.util.NoSuchElementException;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -42,5 +44,56 @@ public class ScoresTest {
         Scores practice;
         assertThrows(IllegalArgumentException.class, () -> {new Scores(numbers);});
     }
-
+    @Test
+    public void getMaxNormalTest(){
+        String numbers = "1 3 5 7 9";
+        Scores practice = new Scores(numbers);
+        assertEquals(practice.getMax(), 9);
+    }
+    @Test
+    public void getMaxAllNegativeTest(){
+        String numbers = "-10 -5 -20";
+        Scores practice = new Scores(numbers);
+        assertEquals(practice.getMax(), -5);
+    }
+    @Test
+    public void getMaxSingleValueTest(){
+        String numbers = "15";
+        Scores practice = new Scores(numbers);
+        assertEquals(practice.getMax(), 15);
+    }
+    @Test
+    public void getMaxEmptyListTest(){
+        String numbers = "";
+        Scores practice = new Scores(numbers);
+        assertThrows(NoSuchElementException.class, practice::getMax);
+    }
+    @Test
+    public void getMaxBoundaryValueTest(){
+        String numbers = "1 3 2147483647 -2147483648";
+        Scores practice = new Scores(numbers);
+        assertEquals(practice.getMax(), Integer.MAX_VALUE);
+    }
+    @Test
+    public void LargeInputConstructorTest(){
+        StringBuilder numbers = new StringBuilder();
+        for (int i = 0; i < 1000; i++) {
+            numbers.append(i).append(" ");
+        }
+        Scores practice = new Scores(numbers.toString().trim());
+        assertEquals(practice.getNumScores(), 1000);
+    }
+    @Test
+    public void WhitespaceOnlyTest(){
+        String numbers = "   \n\t   ";
+        Scores practice = new Scores(numbers);
+        assertEquals(practice.getNumScores(), 0);
+    }
+    @Test
+    public void MultipleZerosTest(){
+        String numbers = "0 0 0";
+        Scores practice = new Scores(numbers);
+        assertEquals(practice.getMax(), 0);
+        assertEquals(practice.getNumScores(), 3);
+    }
 }
